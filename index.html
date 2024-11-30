@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS System</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <h1>Point of Sale System</h1>
+
+        <div>
+            <h2>Manage Inventory</h2>
+            <form @submit.prevent="addProduct">
+                <input type="text" v-model="productName" placeholder="Product Name" required>
+                <input type="number" v-model="productPrice" placeholder="Price" required>
+                <input type="number" v-model="productStock" placeholder="Stock" required>
+                <input type="text" v-model="productSupplier" placeholder="Supplier" required>
+                <button type="submit">Add Product</button>
+            </form>
+            <div v-if="productId">Product ID: {{ productId }}</div>
+        </div>
+
+        <div>
+            <h2>Manage Customers</h2>
+            <form @submit.prevent="addCustomer">
+                <input type="text" v-model="customerName" placeholder="Customer Name" required>
+                <input type="email" v-model="customerEmail" placeholder="Customer Email" required>
+                <button type="submit">Add Customer</button>
+            </form>
+            <div v-if="customerId">Customer ID: {{ customerId }}</div>
+        </div>
+
+        <div>
+            <h2>Sales Report</h2>
+            <button @click="fetchSalesReport">Get Sales Report</button>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Sale ID</th>
+                        <th>Customer Name</th>
+                        <th>Total</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="sale in salesReport" :key="sale.id">
+                        <td>{{ sale.id }}</td>
+                        <td>{{ sale.customer_name }}</td>
+                        <td>{{ sale.total }}</td>
+                        <td>{{ sale.created_at }}</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="app.js"></script>
+</body>
+</html>
